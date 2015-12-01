@@ -29,7 +29,14 @@
                                              :asset-path "js/counter2/compiled/out"
                                              :output-to "resources/public/js/counter2/compiled/counter2.js"
                                              :output-dir "resources/public/js/counter2/compiled/out"
-                                             :optimizations :none}}}}
+                                             :optimizations :none}}
+                       :spotify {:source-paths ["src"]
+                                 :figwheel {:on-jsload "petrol-examples.spotify.core/reload-hook"}
+                                 :compiler {:main petrol-examples.spotify.core
+                                            :asset-path "js/spotify/compiled/out"
+                                            :output-to "resources/public/js/spotify/compiled/spotify.js"
+                                            :output-dir "resources/public/js/spotify/compiled/out"
+                                            :optimizations :none}}}}
 
   :figwheel {:repl true
              :nrepl-port 7888})

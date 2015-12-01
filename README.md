@@ -6,7 +6,7 @@ A ClojureScript library.
 
 ``` sh
 cd examples
-lein figwheel counter counter2
+lein figwheel counter counter2 spotify
 ```
 
 Then open http://localhost:3449
