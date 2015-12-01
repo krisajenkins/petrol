@@ -10,7 +10,7 @@
 
   m/Search
   (process-message [_ {:keys [term]
-                    :as app}]
+                       :as app}]
     (->> (rest/search-songs term)
          (petrol/watch-channels app)))
 

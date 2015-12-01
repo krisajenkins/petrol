@@ -35,7 +35,7 @@
 
 (defn root
   [ui-channel {:keys [term tracks]
-              :as app}]
+               :as app}]
   [:div {:style {:display :flex
                  :flex-direction :column
                  :align-items :center}}
