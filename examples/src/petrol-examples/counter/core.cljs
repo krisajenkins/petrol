@@ -1,4 +1,4 @@
-(ns spotify.core
+(ns petrol-examples.counter.core
   (:require [petrol.core :as petrol]
             [reagent.core :as reagent]
             [cljs.core.async :as async :refer [alts!]])
