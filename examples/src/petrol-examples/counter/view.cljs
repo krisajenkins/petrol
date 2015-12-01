@@ -5,9 +5,12 @@
 (defn root
   [ui-events app]
   [:div.container
-   [:h1 "Demo"]
-   [:div.well (:counter app)]
-   [:button.btn.btn-info {:on-click (petrol/send! ui-events (e/->Decrement))}
-    "Decrement"]
-   [:button.btn.btn-info {:on-click (petrol/send! ui-events (e/->Increment))}
-    "Increment"]])
+   [:div.row
+    [:div.col-xs-12.col-sm-6.col-md-4
+     [:h1 "Demo"]
+     [:div.well (:counter app)]
+     [:div.btn-group
+      [:button.btn.btn-info {:on-click (petrol/send! ui-events (e/->Decrement))}
+       "Decrement"]
+      [:button.btn.btn-info {:on-click (petrol/send! ui-events (e/->Increment))}
+       "Increment"]]]]])
