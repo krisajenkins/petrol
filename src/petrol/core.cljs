@@ -3,9 +3,11 @@
             [clojure.set :as set])
   (:require-macros [cljs.core.async.macros :refer [go-loop]]))
 
-(defprotocol Event
-  (handle-event [event app]
-                "Given an event, take the current app state and return the new one. In essense this is a reducing function."))
+(defprotocol Message
+  (process-message [message app]
+                   "Given a message, take the current app state and
+                   return the new one. In essense this is a reducing
+                   function."))
 
 (defn cmap
   "Apply a function to every element on a channel."
@@ -26,17 +28,17 @@
       (.-value target))))
 
 (defn send!
-  "Send information from the user to the event queue.
-  The message must be a record which implements the Event protocol."
+  "Send information from the user to the message queue.
+  The message must be a record which implements the Message protocol."
   [channel message]
   (fn [dom-event]
     (put! channel message)
     (.stopPropagation dom-event)))
 
 (defn send-value!
-  "Send information from the user to the event queue.
+  "Send information from the user to the message queue.
 
-  Similar to `send!`, except the message-fn will be called with the event's value first."
+  Similar to `send!`, except the message-fn will be called with the message's value first."
   [channel message-fn]
   (fn [dom-event]
     (->> dom-event
@@ -46,28 +48,28 @@
     (.stopPropagation dom-event)))
 
 (defn watch-channels
-  "Add a core.async channel to the set of channels we watch for events."
+  "Add a core.async channel to the set of channels we watch for messages."
   [app & channels]
   (update app ::channels set/union (set channels)))
 
-(defn start-event-loop!
+(defn start-message-loop!
   [!app render-fn]
 
-  (let [ui-events (async/chan)]
+  (let [ui-channel (async/chan)]
     (add-watch !app :render
                (fn [_ _ _ app]
-                 (render-fn ui-events app)))
+                 (render-fn ui-channel app)))
 
     ;; Iniitialise app.
-    (swap! !app watch-channels ui-events)
+    (swap! !app watch-channels ui-channel)
 
     (go-loop []
       (when-let [channels (seq (@!app ::channels))]
-        (let [[event channel] (alts! channels)]
+        (let [[message channel] (alts! channels)]
           (swap! !app (fn [app]
-                        (if (nil? event)
+                        (if (nil? message)
                           (update app ::channels disj channel)
-                          (handle-event event app)))))
+                          (process-message message app)))))
         (recur)))
 
     !app))

@@ -1,4 +1,4 @@
-(ns petrol-examples.spotify.events)
+(ns petrol-examples.spotify.messages)
 
 (defrecord ChangeSearchTerm [term])
 

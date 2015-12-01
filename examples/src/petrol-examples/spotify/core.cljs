@@ -13,11 +13,11 @@
   (swap! !app identity))
 
 (defn render-fn
-  [ui-events app]
-  (reagent/render-component [view/root ui-events app]
+  [ui-channel app]
+  (reagent/render-component [view/root ui-channel app]
                             js/document.body))
 
 (defn ^:export main
   []
   (enable-console-print!)
-  (petrol/start-event-loop! !app render-fn))
+  (petrol/start-message-loop! !app render-fn))

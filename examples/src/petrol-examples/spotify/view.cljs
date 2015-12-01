@@ -1,6 +1,6 @@
 (ns petrol-examples.spotify.view
-  (:require [petrol.core :as petrol]
-            [petrol-examples.spotify.events :as e]))
+  (:require [petrol.core :refer [send! send-value!]]
+            [petrol-examples.spotify.messages :as m]))
 
 (defn- get-track-image-url
   [track]
@@ -23,24 +23,24 @@
     [:h4 name]]])
 
 (defn- search-form
-  [ui-events term]
+  [ui-channel term]
   [:div
    [:input {:type :text
             :placeholder "Song name..."
             :defaultValue term
-            :on-change (petrol/send-value! ui-events e/->ChangeSearchTerm)}]
+            :on-change (send-value! ui-channel m/->ChangeSearchTerm)}]
    [:button.btn.btn-success
-    {:on-click (petrol/send! ui-events (e/->Search))}
+    {:on-click (send! ui-channel (m/->Search))}
     "Go"]])
 
 (defn root
-  [ui-events {:keys [term tracks]
+  [ui-channel {:keys [term tracks]
               :as app}]
   [:div {:style {:display :flex
                  :flex-direction :column
                  :align-items :center}}
    [:h1 "Simple Spotify Client"]
-   [search-form ui-events term]
+   [search-form ui-channel term]
 
    [:div
     (for [track tracks]
