@@ -12,7 +12,7 @@
     (put! channel message)
     (.stopPropagation dom-event)))
 
-(defn start-event-loop
+(defn start-event-loop!
   [!app render-fn]
 
   (let [ui-events (async/chan)]

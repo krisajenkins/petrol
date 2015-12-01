@@ -20,4 +20,4 @@
 (defn ^:export main
   []
   (enable-console-print!)
-  (petrol/start-event-loop !app render-fn))
+  (petrol/start-event-loop! !app render-fn))
