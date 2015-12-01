@@ -6,8 +6,8 @@
   [ui-events app]
   [:div.container
    [:div.row
-    [:div.col-xs-12.col-sm-6.col-md-4
-     [:h1 "Demo"]
+    [:div.col-xs-12.col-sm-6.col-lg-4
+     [:h1 "Simple Counter"]
      [:div.well (:counter app)]
      [:div.btn-group
       [:button.btn.btn-info {:on-click (petrol/send! ui-events (e/->Decrement))}
