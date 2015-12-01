@@ -19,16 +19,16 @@
   :cljsbuild {:builds {:counter {:source-paths ["src"]
                                  :figwheel {:on-jsload "petrol-examples.counter.core/reload-hook"}
                                  :compiler {:main petrol-examples.counter.core
-                                            :asset-path "js/compiled/out"
-                                            :output-to "resources/public/js/compiled/counter.js"
-                                            :output-dir "resources/public/js/compiled/out"
+                                            :asset-path "js/counter/compiled/out"
+                                            :output-to "resources/public/js/counter/compiled/counter.js"
+                                            :output-dir "resources/public/js/counter/compiled/out"
                                             :optimizations :none}}
                        :counter2 {:source-paths ["src"]
                                   :figwheel {:on-jsload "petrol-examples.counter2.core/reload-hook"}
                                   :compiler {:main petrol-examples.counter2.core
-                                             :asset-path "js/compiled/out"
-                                             :output-to "resources/public/js/compiled/counter2.js"
-                                             :output-dir "resources/public/js/compiled/out"
+                                             :asset-path "js/counter2/compiled/out"
+                                             :output-to "resources/public/js/counter2/compiled/counter2.js"
+                                             :output-dir "resources/public/js/counter2/compiled/out"
                                              :optimizations :none}}}}
 
   :figwheel {:repl true
