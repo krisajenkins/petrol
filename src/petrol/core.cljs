@@ -26,12 +26,17 @@
       (.-value target))))
 
 (defn send!
+  "Send information from the user to the event queue.
+  The message must be a record which implements the Event protocol."
   [channel message]
   (fn [dom-event]
     (put! channel message)
     (.stopPropagation dom-event)))
 
 (defn send-value!
+  "Send information from the user to the event queue.
+
+  Similar to `send!`, except the message-fn will be called with the event's value first."
   [channel message-fn]
   (fn [dom-event]
     (->> dom-event
@@ -41,6 +46,7 @@
     (.stopPropagation dom-event)))
 
 (defn watch-channels
+  "Add a core.async channel to the set of channels we watch for events."
   [app & channels]
   (update app ::channels set/union (set channels)))
 
