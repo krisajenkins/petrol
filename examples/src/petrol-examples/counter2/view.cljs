@@ -7,7 +7,7 @@
   [:div.container
    [:div.row
     [:div.col-xs-12.col-sm-6.col-lg-4
-     [:h1 "More Interesting Counter!"]
+     [:h1 "Interesting Counter!"]
      [:div.well (:counter app)]
      [:div.btn-group
       [:button.btn.btn-danger {:on-click (send! ui-channel (m/->ResetCounter))}

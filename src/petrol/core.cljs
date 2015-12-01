@@ -1,5 +1,5 @@
 (ns petrol.core
-  (:require [cljs.core.async :as async :refer [alts! put! pipe chan]]
+  (:require [cljs.core.async :as async :refer [alts! put! pipe chan <! >!]]
             [clojure.set :as set])
   (:require-macros [cljs.core.async.macros :refer [go-loop]]))
 
@@ -8,6 +8,12 @@
                    "Given a message, take the current app state and
                    return the new one. In essense this is a reducing
                    function."))
+
+(defprotocol EventSource
+  (watch-channels [message app]))
+
+(def ^:private !channels
+  (atom #{}))
 
 (defn cmap
   "Apply a function to every element on a channel."
@@ -47,29 +53,36 @@
          (put! channel))
     (.stopPropagation dom-event)))
 
-(defn watch-channels
-  "Add a core.async channel to the set of channels we watch for messages."
-  [app & channels]
-  (update app ::channels set/union (set channels)))
+(defn forward
+  [f from]
+  (let [to (chan)]
+    (go-loop []
+      (>! from (f (<! to))))
+    to))
 
 (defn start-message-loop!
   [!app render-fn]
 
+  (reset! !channels #{})
+
   (let [ui-channel (async/chan)]
+    (swap! !channels conj ui-channel)
+
     (add-watch !app :render
                (fn [_ _ _ app]
                  (render-fn ui-channel app)))
 
-    ;; Iniitialise app.
-    (swap! !app watch-channels ui-channel)
+    (swap! !app identity)
 
     (go-loop []
-      (when-let [channels (seq (@!app ::channels))]
-        (let [[message channel] (alts! channels)]
-          (swap! !app (fn [app]
-                        (if (nil? message)
-                          (update app ::channels disj channel)
-                          (process-message message app)))))
-        (recur)))
+      (when-let [cs (seq @!channels)]
+        (let [[message channel] (alts! cs)]
+          (when (nil? message)
+            (swap! !channels disj channel))
 
-    !app))
+          (when (satisfies? Message message)
+            (swap! !app #(process-message message %)))
+
+          (when (satisfies? EventSource message)
+            (swap! !channels set/union (watch-channels message @!app))))
+        (recur)))))

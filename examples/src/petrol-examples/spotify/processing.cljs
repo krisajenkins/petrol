@@ -6,14 +6,19 @@
 (extend-protocol petrol/Message
   m/ChangeSearchTerm
   (process-message [{:keys [term]} app]
-    (assoc app :term term))
+    (assoc app :term term)))
 
+(extend-protocol petrol/Message
   m/Search
-  (process-message [_ {:keys [term]
-                       :as app}]
-    (->> (rest/search-songs term)
-         (petrol/watch-channels app)))
+  (process-message [_ app] app))
 
+(extend-protocol petrol/EventSource
+  m/Search
+  (watch-channels [_ {:keys [term]
+             :as app}]
+    #{(rest/search-songs term)}))
+
+(extend-protocol petrol/Message
   m/SearchResults
   (process-message [response app]
     (assoc app :tracks (-> response :body :tracks :items))))

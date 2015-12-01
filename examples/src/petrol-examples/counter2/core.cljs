@@ -4,8 +4,11 @@
             [petrol-examples.counter2.processing]
             [petrol-examples.counter2.view :as view]))
 
+(def initial-state
+  {:counter 0})
+
 (defonce !app
-  (reagent/atom {:counter 0}))
+  (reagent/atom initial-state))
 
 ;; figwheel reload-hook
 (defn reload-hook

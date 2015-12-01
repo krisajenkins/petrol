@@ -36,7 +36,14 @@
                                             :asset-path "js/spotify/compiled/out"
                                             :output-to "resources/public/js/spotify/compiled/spotify.js"
                                             :output-dir "resources/public/js/spotify/compiled/out"
-                                            :optimizations :none}}}}
+                                            :optimizations :none}}
+                       :hydra {:source-paths ["src"]
+                               :figwheel {:on-jsload "petrol-examples.hydra.core/reload-hook"}
+                               :compiler {:main petrol-examples.hydra.core
+                                          :asset-path "js/hydra/compiled/out"
+                                          :output-to "resources/public/js/hydra/compiled/hydra.js"
+                                          :output-dir "resources/public/js/hydra/compiled/out"
+                                          :optimizations :none}}}}
 
   :figwheel {:repl true
              :nrepl-port 7888})

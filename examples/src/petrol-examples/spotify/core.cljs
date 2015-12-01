@@ -4,8 +4,11 @@
             [petrol-examples.spotify.processing]
             [petrol-examples.spotify.view :as view]))
 
+(def initial-state
+  {})
+
 (defonce !app
-  (reagent/atom {}))
+  (reagent/atom initial-state))
 
 ;; figwheel reload-hook
 (defn reload-hook
