@@ -21,14 +21,14 @@
                  (render-fn ui-events app)))
 
     ;; Iniitialise app.
-    (swap! !app assoc :channels #{ui-events})
+    (swap! !app assoc ::channels #{ui-events})
 
     (go-loop []
-      (when-let [channels (seq (@!app :channels))]
+      (when-let [channels (seq (@!app ::channels))]
         (let [[event channel] (alts! channels)]
           (swap! !app (fn [app]
                         (if (nil? event)
-                          (update app :channels disj channel)
+                          (update app ::channels disj channel)
                           (handle-event event app)))))
         (recur)))
 
