@@ -1,8 +1,8 @@
 (ns petrol-examples.counter.processing
-  (:require [petrol.core :as petrol]
+  (:require [petrol.core :refer [Message]]
             [petrol-examples.counter.messages :as m]))
 
-(extend-protocol petrol/Message
+(extend-protocol Message
   m/Decrement
   (process-message [_ app]
     (update app :counter dec))
