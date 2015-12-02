@@ -15,11 +15,6 @@
 (def ^:private !channels
   (atom #{}))
 
-(defn cmap
-  "Apply a function to every element on a channel."
-  [f in]
-  (pipe in (chan 1 (map f))))
-
 (defn- get-event-value
   "Given a DOM event, return the value it yields. This abstracts over
   the needless inconsistencies of the DOM."
@@ -53,7 +48,17 @@
          (put! channel))
     (.stopPropagation dom-event)))
 
+(defn wrap
+  "Apply a function to every element that comes out of a channel.
+
+  (map for channels)"
+  [f in]
+  (pipe in (chan 1 (map f))))
+
 (defn forward
+  "Apply a function to every element that goes into a channel.
+
+  (contramap for channels)"
   [f from]
   (let [to (chan)]
     (go-loop []

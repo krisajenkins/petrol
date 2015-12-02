@@ -1,5 +1,5 @@
 (ns petrol-examples.hydra.processing
-  (:require [petrol.core :refer [Message process-message EventSource watch-channels cmap]]
+  (:require [petrol.core :refer [Message process-message EventSource watch-channels wrap]]
             [petrol-examples.spotify.processing]
             [petrol-examples.hydra.messages :as m]))
 
@@ -24,5 +24,5 @@
   m/Spotify
   (watch-channels [{:keys [message]} app]
     (when (satisfies? EventSource message)
-      (map #(cmap m/->Spotify %)
+      (map #(wrap m/->Spotify %)
            (watch-channels message (:spotify app))))))

@@ -5,8 +5,8 @@
 
 (defn search-songs
   [term]
-  (petrol/cmap m/map->SearchResults
-               (http/get "https://api.spotify.com/v1/search"
-                         {:with-credentials? false
-                          :query-params {:q term
-                                         :type "track"}})))
+  (->> (http/get "https://api.spotify.com/v1/search"
+                 {:with-credentials? false
+                  :query-params {:q term
+                                 :type "track"}})
+       (petrol/wrap m/map->SearchResults)))
