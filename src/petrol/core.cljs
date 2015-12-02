@@ -66,28 +66,30 @@
     to))
 
 (defn start-message-loop!
-  [!app render-fn]
+  ([!app render-fn]
+   (start-message-loop! !app render-fn #{}))
 
-  (reset! !channels #{})
+  ([!app render-fn initial-channels]
+   (reset! !channels initial-channels)
 
-  (let [ui-channel (async/chan)]
-    (swap! !channels conj ui-channel)
+   (let [ui-channel (async/chan)]
+     (swap! !channels conj ui-channel)
 
-    (add-watch !app :render
-               (fn [_ _ _ app]
-                 (render-fn ui-channel app)))
+     (add-watch !app :render
+                (fn [_ _ _ app]
+                  (render-fn ui-channel app)))
 
-    (swap! !app identity)
+     (swap! !app identity)
 
-    (go-loop []
-      (when-let [cs (seq @!channels)]
-        (let [[message channel] (alts! cs)]
-          (when (nil? message)
-            (swap! !channels disj channel))
+     (go-loop []
+       (when-let [cs (seq @!channels)]
+         (let [[message channel] (alts! cs)]
+           (when (nil? message)
+             (swap! !channels disj channel))
 
-          (when (satisfies? Message message)
-            (swap! !app #(process-message message %)))
+           (when (satisfies? Message message)
+             (swap! !app #(process-message message %)))
 
-          (when (satisfies? EventSource message)
-            (swap! !channels set/union (watch-channels message @!app))))
-        (recur)))))
+           (when (satisfies? EventSource message)
+             (swap! !channels set/union (watch-channels message @!app))))
+         (recur))))))
