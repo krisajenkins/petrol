@@ -7,11 +7,14 @@
             [petrol-examples.hydra.processing]
             [petrol-examples.hydra.view :as view]))
 
+(def initial-state
+  {:counter    counter/initial-state
+   :counter2a counter2/initial-state
+   :counter2b counter2/initial-state
+   :spotify    spotify/initial-state})
+
 (defonce !app
-  (reagent/atom {:counter    counter/initial-state
-                 :counter2a counter2/initial-state
-                 :counter2b counter2/initial-state
-                 :spotify    spotify/initial-state}))
+  (reagent/atom initial-state))
 
 ;; figwheel reload-hook
 (defn reload-hook
