@@ -5,7 +5,7 @@
             [petrol-examples.spotify.view :as view]))
 
 (def initial-state
-  {})
+  {:term ""})
 
 (defonce !app
   (reagent/atom initial-state))
