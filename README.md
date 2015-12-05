@@ -22,6 +22,20 @@ lein figwheel counter counter2 spotify hydra
 
 Then open http://localhost:3449
 
+## Issues
+
+If you get this exception when running `lein`:
+
+``` sh
+clojure.lang.Compiler$CompilerException: java.io.FileNotFoundException: Could not locate cljs/analyzer__init.class or cljs/analyzer.clj on classpath: , compiling:(figwheel_sidecar/utils.clj:1:1)
+```
+
+Try upgrading leiningen to version 2.5.3+
+
+``` sh
+lein upgrade
+```
+
 ## License
 
 Copyright © 2015 Kris Jenkins
