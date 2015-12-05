@@ -3,6 +3,8 @@
 Petrol is a library for building ClojureScript pages, using an event-stream
 model.
 
+[![Clojars Project](http://clojars.org/petrol/latest-version.svg)](http://clojars.org/petrol)
+
 [![Build
 Status](https://travis-ci.org/krisajenkins/petrol.svg?branch=0.1.0)](https://travis-ci.org/krisajenkins/petrol)
 
