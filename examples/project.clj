@@ -9,7 +9,7 @@
                  ;; ClojureScript
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374"]
-                 [petrol "0.1.0-SNAPSHOT"]
+                 [petrol "0.1.0"]
                  [reagent "0.5.1"]
                  [cljs-http "0.1.38"]]
 
