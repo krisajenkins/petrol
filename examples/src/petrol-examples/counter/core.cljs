@@ -15,10 +15,17 @@
   []
   (swap! !app identity))
 
+(defn handle! [ui-channel message]
+  (let [focused-message
+        (reify petrol/Message
+          (process-message [this state]
+            (update state :counter (partial petrol/process-message message))))]
+    (petrol/send! ui-channel focused-message)))
+
 (defn render-fn
   [ui-channel app]
   (reagent/render-component
-    [view/root (partial petrol/send! ui-channel) (:counter app)]
+    [view/root (partial handle! ui-channel) (:counter app)]
     js/document.body))
 
 (defn ^:export main
