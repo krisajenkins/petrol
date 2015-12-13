@@ -17,8 +17,9 @@
 
 (defn render-fn
   [ui-channel app]
-  (reagent/render-component [view/root ui-channel app]
-                            js/document.body))
+  (reagent/render-component
+    [view/root (partial petrol/send! ui-channel) app]
+    js/document.body))
 
 (defn ^:export main
   []
