@@ -2,12 +2,12 @@
   (:require [petrol-examples.counter.messages :as m]))
 
 (defn root
-  [handle! app]
+  [handle! state]
   [:div.container
    [:div.row
     [:div.col-xs-12.col-sm-6.col-lg-4
      [:h1 "Simple Counter"]
-     [:div.well (:counter app)]
+     [:div.well state]
      [:div.btn-group
       [:button.btn.btn-info {:on-click (handle! (m/->Decrement))}
        "Decrement"]
