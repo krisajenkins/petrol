@@ -1,7 +1,8 @@
 # Petrol
 
-Petrol is a library for building ClojureScript pages, using an event-stream
-model.
+Petrol is a library to help you build ClojureScript webapps. It
+concentrates on being Functional, and if that leads to being Reactive,
+well, that's just fine too.
 
 [![Clojars Project](http://clojars.org/petrol/latest-version.svg)](http://clojars.org/petrol)
 
