@@ -23,6 +23,19 @@ lein figwheel counter counter2 spotify hydra
 
 Then open http://localhost:3449
 
+## Developing
+
+Developing a standalone library is a bit of a pain. The solution I like is to use the library as an editable-dependency of the examples, like so:
+
+``` sh
+cd examples
+mkdir checkouts
+ln -s .. checkouts/
+lein figwheel
+```
+
+Now you should be able to edit the library, and the examples that demostrate its use, as one live project.
+
 ## Troubleshooting
 
 If you get this exception when running `lein`:
