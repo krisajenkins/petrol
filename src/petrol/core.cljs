@@ -20,6 +20,8 @@
       (>! from (f (<! to))))
     to))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defprotocol Message
   (process-message [message app]
                    "Given a message, take the current app state and
@@ -41,8 +43,7 @@
          (watch-channels submessage)
          (map #(wrap wrapper %)))))
 
-(def ^:private !channels
-  (atom #{}))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- get-event-value
   "Given a DOM event, return the value it yields. This abstracts over
@@ -76,6 +77,11 @@
          message-fn
          (put! channel))
     (.stopPropagation dom-event)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def ^:private !channels
+  (atom #{}))
 
 (defn start-message-loop!
   ([!app render-fn]
