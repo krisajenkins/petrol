@@ -22,7 +22,7 @@ lein figwheel counter counter2 spotify hydra
 
 Then open http://localhost:3449
 
-## Issues
+## Troubleshooting
 
 If you get this exception when running `lein`:
 
