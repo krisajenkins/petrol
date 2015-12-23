@@ -9,8 +9,11 @@
                  ;; ClojureScript
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374"]
-                 [petrol "0.1.0"]
+                 [petrol "0.1.0-SNAPSHOT"]
                  [reagent "0.5.1"]
+                 [bidi "1.24.0"]
+                 [com.cemerick/url "0.1.1"]
+                 [kibu/pushy "0.3.6"]
                  [cljs-http "0.1.38"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
@@ -43,7 +46,14 @@
                                           :asset-path "js/hydra/compiled/out"
                                           :output-to "resources/public/js/hydra/compiled/hydra.js"
                                           :output-dir "resources/public/js/hydra/compiled/out"
-                                          :optimizations :none}}}}
+                                          :optimizations :none}}
+                       :app {:source-paths ["src"]
+                             :figwheel {:on-jsload "petrol-examples.app.core/reload-hook"}
+                             :compiler {:main petrol-examples.app.core
+                                        :asset-path "js/app/compiled/out"
+                                        :output-to "resources/public/js/app/compiled/app.js"
+                                        :output-dir "resources/public/js/app/compiled/out"
+                                        :optimizations :none}}}}
 
   :figwheel {:repl true
              :nrepl-port 7888})
