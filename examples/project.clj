@@ -43,7 +43,14 @@
                                           :asset-path "js/hydra/compiled/out"
                                           :output-to "resources/public/js/hydra/compiled/hydra.js"
                                           :output-dir "resources/public/js/hydra/compiled/out"
-                                          :optimizations :none}}}}
+                                          :optimizations :none}}
+                       :multicounters {:source-paths ["src"]
+                                       :figwheel {:on-jsload "petrol-examples.multicounters.core/reload-hook"}
+                                       :compiler {:main petrol-examples.multicounters.core
+                                                  :asset-path "js/multicounters/compiled/out"
+                                                  :output-to "resources/public/js/multicounters/compiled/multicounters.js"
+                                                  :output-dir "resources/public/js/multicounters/compiled/out"
+                                                  :optimizations :none}}}}
 
   :figwheel {:repl true
              :nrepl-port 7888})
