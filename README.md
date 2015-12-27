@@ -18,7 +18,7 @@ will tell you all you need to know.
 
 ``` sh
 cd examples
-lein figwheel counter counter2 spotify hydra
+lein figwheel counter counter2 spotify hydra pages
 ```
 
 Then open http://localhost:3449
