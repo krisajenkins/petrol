@@ -6,9 +6,8 @@
             [petrol-examples.multicounters.view :as view]))
 
 (def initial-state
-  {:last-counter-id 2
-   :counters {1 counter2/initial-state
-              2 counter2/initial-state}})
+  {:counters [counter2/initial-state
+              counter2/initial-state]})
 
 (defonce !app
   (reagent/atom initial-state))
@@ -27,4 +26,3 @@
   []
   (enable-console-print!)
   (petrol/start-message-loop! !app render-fn))
-

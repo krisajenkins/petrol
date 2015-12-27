@@ -10,10 +10,11 @@
 
   m/AddCounter
   (process-message [_ app]
-    (let [new-id (inc (:last-counter-id app))]
-      (-> (assoc-in app [:counters new-id] counter2/initial-state)
-          (assoc :last-counter-id new-id))))
+    (update app :counters conj counter2/initial-state))
 
   m/DelCounter
   (process-message [{:keys [counter-id]} app]
-    (update app :counters #(dissoc % counter-id))))
+    (update app :counters (fn [xs]
+                            (->> (concat (take counter-id xs)
+                                         (drop (inc counter-id) xs))
+                                 (into []))))))
