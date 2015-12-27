@@ -1,6 +1,6 @@
 (ns petrol-examples.hydra.messages)
 
-(defrecord Counter   [message])
-(defrecord Counter2A [message])
-(defrecord Counter2B [message])
-(defrecord Spotify   [message])
+(defrecord Counter   [submessage])
+(defrecord Counter2A [submessage])
+(defrecord Counter2B [submessage])
+(defrecord Spotify   [submessage])

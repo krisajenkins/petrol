@@ -9,8 +9,11 @@
                  ;; ClojureScript
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374"]
-                 [petrol "0.1.0"]
+                 [petrol "0.1.1"]
                  [reagent "0.5.1"]
+                 [bidi "1.24.0"]
+                 [com.cemerick/url "0.1.1"]
+                 [kibu/pushy "0.3.6"]
                  [cljs-http "0.1.38"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
@@ -43,6 +46,13 @@
                                           :asset-path "js/hydra/compiled/out"
                                           :output-to "resources/public/js/hydra/compiled/hydra.js"
                                           :output-dir "resources/public/js/hydra/compiled/out"
+                                          :optimizations :none}}
+                       :pages {:source-paths ["src"]
+                               :figwheel {:on-jsload "petrol-examples.pages.core/reload-hook"}
+                               :compiler {:main petrol-examples.pages.core
+                                          :asset-path "js/pages/compiled/out"
+                                          :output-to "resources/public/js/pages/compiled/pages.js"
+                                          :output-dir "resources/public/js/pages/compiled/out"
                                           :optimizations :none}}
                        :multicounters {:source-paths ["src"]
                                        :figwheel {:on-jsload "petrol-examples.multicounters.core/reload-hook"}
