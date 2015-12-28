@@ -53,7 +53,14 @@
                                           :asset-path "js/pages/compiled/out"
                                           :output-to "resources/public/js/pages/compiled/pages.js"
                                           :output-dir "resources/public/js/pages/compiled/out"
-                                          :optimizations :none}}}}
+                                          :optimizations :none}}
+                       :multicounters {:source-paths ["src"]
+                                       :figwheel {:on-jsload "petrol-examples.multicounters.core/reload-hook"}
+                                       :compiler {:main petrol-examples.multicounters.core
+                                                  :asset-path "js/multicounters/compiled/out"
+                                                  :output-to "resources/public/js/multicounters/compiled/multicounters.js"
+                                                  :output-dir "resources/public/js/multicounters/compiled/out"
+                                                  :optimizations :none}}}}
 
   :figwheel {:repl true
              :nrepl-port 7888})
