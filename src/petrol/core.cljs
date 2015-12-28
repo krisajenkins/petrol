@@ -55,7 +55,9 @@
       #{"checkbox"}
       (.-checked target)
 
-      #{"text" "email" "password" "number" "radio" "textarea" "select-one" "select-multiple"}
+      #{"text" "email" "password" "number" "radio" "textarea" "select-one" "select-multiple"
+        "date" "datetime" "datetime-local" "week" "month"
+        "range" "search" "tel" "time" "url" "color"}
       (.-value target))))
 
 (defn send!
