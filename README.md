@@ -50,13 +50,13 @@ Try upgrading leiningen to version 2.5.3+
 lein upgrade
 ```
 
-** Contributors
+## Contributors
 
 With thanks to...
 
-[Chris Howe-Jones](https://github.com/chrishowejones)
-[Munk](https://github.com/munk)
-[Jelle Akkerman](https://github.com/jellea)
+* [Chris Howe-Jones](https://github.com/chrishowejones)
+* [Munk](https://github.com/munk)
+* [Jelle Akkerman](https://github.com/jellea)
 
 ## License
 
