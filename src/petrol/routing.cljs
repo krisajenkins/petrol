@@ -29,6 +29,6 @@
 
 (defn href-for
   ([bidi-routes handler]
-   (href-for handler {}))
+   (href-for bidi-routes handler {}))
   ([bidi-routes handler args]
    (apply bidi/path-for bidi-routes handler (mapcat identity args))))
