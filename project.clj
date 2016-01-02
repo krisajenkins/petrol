@@ -1,4 +1,4 @@
-(defproject petrol "0.1.2"
+(defproject petrol "0.1.3"
   :description "A simple event-handling framework for ClojureScript projects."
   :url "https://github.com/krisajenkins/petrol"
   :license {:name "Eclipse Public License"
