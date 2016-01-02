@@ -57,6 +57,7 @@ With thanks to...
 * [Chris Howe-Jones](https://github.com/chrishowejones)
 * [Munk](https://github.com/munk)
 * [Jelle Akkerman](https://github.com/jellea)
+* [Shashy Dass](https://github.com/esdee)
 
 ## License
 
