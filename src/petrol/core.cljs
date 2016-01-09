@@ -85,6 +85,8 @@
 (def ^:private !channels
   (atom #{}))
 
+(def !message-history (atom []))
+
 (defn start-message-loop!
   ([!app render-fn]
    (start-message-loop! !app render-fn #{}))
@@ -103,11 +105,13 @@
 
      (go-loop []
        (when-let [cs (seq @!channels)]
+
          (let [[message channel] (alts! cs)]
            (when (nil? message)
              (swap! !channels disj channel))
 
            (when (satisfies? Message message)
+             (swap! !message-history conj message)
              (swap! !app #(process-message message %)))
 
            (when (satisfies? EventSource message)
