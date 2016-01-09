@@ -15,3 +15,5 @@ pom.xml.asc
 *.log
 checkouts/
 target/
+/examples/out
+examples/main.js
