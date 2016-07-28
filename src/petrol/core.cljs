@@ -1,6 +1,7 @@
 (ns petrol.core
   (:require [cljs.core.async :as async :refer [alts! put! pipe chan <! >!]]
-            [clojure.set :as set])
+            [clojure.set :as set]
+            [clojure.core.reducers :as r])
   (:require-macros [cljs.core.async.macros :refer [go-loop]]))
 
 (defn wrap
@@ -85,6 +86,8 @@
 (def ^:private !channels
   (atom #{}))
 
+(def !message-history (atom []))
+
 (defn start-message-loop!
   ([!app render-fn]
    (start-message-loop! !app render-fn #{}))
@@ -92,7 +95,8 @@
   ([!app render-fn initial-channels]
    (reset! !channels initial-channels)
 
-   (let [ui-channel (async/chan)]
+   (let [ui-channel (async/chan)
+         initial-state @!app]
      (swap! !channels conj ui-channel)
 
      (add-watch !app :render
@@ -103,12 +107,17 @@
 
      (go-loop []
        (when-let [cs (seq @!channels)]
+
          (let [[message channel] (alts! cs)]
            (when (nil? message)
              (swap! !channels disj channel))
 
            (when (satisfies? Message message)
-             (swap! !app #(process-message message %)))
+             ;; add messages to history
+             (swap! !message-history conj message)
+
+             ;; reduce over messages and add to state TODO: make more efficient
+             (reset! !app (r/reduce #(process-message %2 %1) initial-state @!message-history)))
 
            (when (satisfies? EventSource message)
              (swap! !channels set/union (watch-channels message @!app))))
