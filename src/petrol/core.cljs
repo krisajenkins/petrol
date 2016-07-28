@@ -80,6 +80,23 @@
          (put! channel))
     (.stopPropagation dom-event)))
 
+(defn send-key!
+  "Send information from the user to the message queue.
+
+  Similar to `send-value!`, except the dom-event's `which` property retrieves the keycode,
+ and an additional filter function can be supplied by the caller to control which keycodes
+ are sent on the queue.
+
+ The filterfn returns the keycode if it should be sent, or nil if not."
+  [channel message-fn filter-fn]
+  (fn [dom-event]
+    (when-let [k (->> dom-event
+                      .-which
+                      filter-fn)]
+      (->> k
+           message-fn
+           (put! channel)))
+    (.stopPropagation dom-event)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def ^:private !channels
