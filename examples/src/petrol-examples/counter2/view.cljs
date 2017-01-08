@@ -1,5 +1,5 @@
 (ns petrol-examples.counter2.view
-  (:require [petrol.core :refer [send!]]
+  (:require [petrol.core :refer [send! send-key!]]
             [petrol-examples.counter2.messages :as m]))
 
 (defn root
@@ -17,5 +17,10 @@
                            ["+ 5" 5]
                            ["+ 10" 10]]]
         [:button.btn.btn-info {:key delta
-                               :on-click (send! ui-channel (m/->ModifyCounter delta))}
-         label])]]]])
+                               :on-click (send! ui-channel (m/->ModifyCounter delta))
+                               :on-key-down (send-key! ui-channel m/->KeyEvent (fn [c] (some #{c} [27])))
+                               }
+         label])]
+     [:div
+      [:span.label-default.label
+       "Pressing ESC also resets"]]]]])

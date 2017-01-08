@@ -3,3 +3,5 @@
 (defrecord ResetCounter [])
 
 (defrecord ModifyCounter [n])
+
+(defrecord KeyEvent [c])
